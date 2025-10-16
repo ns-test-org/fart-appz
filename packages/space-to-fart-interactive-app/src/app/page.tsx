@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 export default function FartApp() {
   const [farts, setFarts] = useState<Array<{ id: number; x: number; y: number; timestamp: number }>>([]);
   const [fartCount, setFartCount] = useState(0);
+  const [showAchievement, setShowAchievement] = useState(false);
 
   // Array of fart emojis and text variations
   const fartEmojis = ['💨', '🌪️', '💨', '🌬️', '💨'];
@@ -35,12 +36,20 @@ export default function FartApp() {
     };
 
     setFarts(prev => [...prev, newFart]);
-    setFartCount(prev => prev + 1);
+    setFartCount(prev => {
+      const newCount = prev + 1;
+      // Show achievement message for milestones
+      if (newCount > 0 && newCount % 10 === 0) {
+        setShowAchievement(true);
+        setTimeout(() => setShowAchievement(false), 5000); // Hide after 5 seconds
+      }
+      return newCount;
+    });
 
-    // Remove fart after 2 seconds
+    // Remove fart after 5 seconds
     setTimeout(() => {
       setFarts(prev => prev.filter(fart => fart.id !== newFart.id));
-    }, 2000);
+    }, 5000);
   };
 
   return (
@@ -76,7 +85,7 @@ export default function FartApp() {
           style={{
             left: fart.x,
             top: fart.y,
-            animation: 'fartAnimation 2s ease-out forwards'
+            animation: 'fartAnimation 5s ease-out forwards'
           }}
         >
           <div className="text-6xl fart-wiggle">
@@ -96,8 +105,8 @@ export default function FartApp() {
       </div>
 
       {/* Achievement messages */}
-      {fartCount > 0 && fartCount % 10 === 0 && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-black p-6 rounded-lg shadow-xl animate-bounce">
+      {showAchievement && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-black p-6 rounded-lg shadow-xl animate-bounce z-10">
           <div className="text-3xl font-bold text-center">
             🎉 {fartCount} FARTS! 🎉
           </div>
@@ -111,6 +120,11 @@ export default function FartApp() {
     </div>
   );
 }
+
+
+
+
+
 
 
 
