@@ -66,6 +66,8 @@ body {
 }
 
 .fart-wiggle {
-  animation: wiggle 0.5s ease-in-out;
+  animation: wiggle 0.15s ease-in-out 3;
 }
+
+
 
