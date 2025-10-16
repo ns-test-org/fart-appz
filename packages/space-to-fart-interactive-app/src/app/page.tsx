@@ -60,7 +60,7 @@ export default function FartApp() {
       {/* Header */}
       <div className="text-center py-8">
         <h1 className="text-6xl font-bold text-green-800 dark:text-green-200 mb-4">
-          💨 COOPS FART 💨
+          COOPS FART
         </h1>
         <p className="text-2xl text-green-700 dark:text-green-300 mb-2">
           Press SPACEBAR or CLICK anywhere to fart!
@@ -120,6 +120,7 @@ export default function FartApp() {
     </div>
   );
 }
+
 
 
 
